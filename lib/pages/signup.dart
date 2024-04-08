@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:first_project/models/UserModel.dart';
+import 'package:first_project/services/DatabaseHelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -20,7 +22,7 @@ class Signup extends StatelessWidget {
     String? genderValue;
     String? errorMessage;
 
-    void signup() {
+    void signup() async {
       String name = nameController.text;
       String email = emailController.text;
       String studentId = studentIdController.text;
@@ -47,12 +49,24 @@ class Signup extends StatelessWidget {
         // Sign up successful
         errorMessage = null;
         // Handle signup success
-        // For now, just print signup success
         print('Signup success');
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Signup success'),
           backgroundColor: Colors.green,
         ));
+        // save on the db
+        final userData = User(
+          name: name,
+          email: email,
+          studentId: studentId,
+          password: password,
+          gender: genderValue ?? '',
+          level: level,
+        );
+
+        print(userData);
+
+        await DBHelper.insertUser(userData);
         return;
       }
 
