@@ -57,7 +57,7 @@ class Signup extends StatelessWidget {
       }
 
       // Signup failed
-      print('Signup failed: $errorMessage');
+      print('Signup failed : $errorMessage');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Signup failed: $errorMessage'),
         backgroundColor: Colors.red,
